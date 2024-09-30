@@ -15,9 +15,6 @@ class Category extends Model
         'name',
     ];
 
-    /**
-     * Відношення з моделлю Post (кожна категорія може мати багато постів).
-     */
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'categories_and_posts');

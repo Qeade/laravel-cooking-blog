@@ -44,25 +44,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * Відношення з моделлю Post (один користувач може мати багато постів).
-     */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
-    /**
-     * Відношення з моделлю Comment (один користувач може залишати багато коментарів).
-     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
-    /**
-     * Відношення з моделлю Like (один користувач може залишити багато лайків).
-     */
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
