@@ -52,6 +52,16 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Пост успішно створений.');
     }
 
+    public function show(Post $post, Request $request)
+    {
+        $users = User::all();
+        $selectedUserId = $request->input('selected_user', $users->first()->id);
+        $isLiked = $post->likes()->where('user_id', $selectedUserId)->exists();
+    
+        return view('posts.show', compact('post', 'users', 'selectedUserId', 'isLiked'));
+    }
+
+
     /**
      * Show the form for editing the specified post.
      */

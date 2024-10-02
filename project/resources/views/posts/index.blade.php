@@ -33,6 +33,7 @@
                         @endforeach
                     </td>
                     <td>
+                        <a href="{{ route('posts.show', $post->id) }}" class="btn btn-info">Переглянути</a>
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Редагувати</a>
                         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
                             @csrf
