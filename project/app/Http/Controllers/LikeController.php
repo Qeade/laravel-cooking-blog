@@ -9,7 +9,6 @@ class LikeController extends Controller
 {
     public function store(Post $post, $userId)
     {
-        // Додаємо лайк, якщо його ще немає
         if (!$post->likes()->where('user_id', $userId)->exists()) {
             $post->likes()->create(['user_id' => $userId]);
         }
@@ -19,7 +18,6 @@ class LikeController extends Controller
 
     public function destroy(Post $post, $userId)
     {
-        // Видаляємо лайк, якщо він існує
         $post->likes()->where('user_id', $userId)->delete();
 
         return redirect()->route('posts.show', ['post' => $post->id, 'selected_user' => $userId]);

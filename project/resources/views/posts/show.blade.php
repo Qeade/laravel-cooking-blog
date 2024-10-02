@@ -28,6 +28,10 @@
 
     <p class="mt-3">Лайків: {{ $post->likes->count() }}</p>
 
+    <h5>Категорії:</h5>
+    @foreach ($post->categories as $category)
+        <span class="badge bg-info"><h5>{{ $category->name }}</h5></span>
+    @endforeach
     <h1>{{ $post->title }}</h1>
 
     <div class="mb-3">
@@ -39,6 +43,45 @@
         <h5>Опис:</h5>
         <p>{{ $post->description }}</p>
     </div>
+
+    <h3>Додати коментар</h3>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('comments.store', $post->id) }}" method="POST">
+        @csrf
+        <input type="hidden" name="user_id" value="{{ $selectedUserId }}">
+        <div class="mb-3">
+            <label for="text" class="form-label">Коментар</label>
+            <textarea class="form-control" id="text" name="text" rows="3" required>{{ old('text') }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Додати коментар</button>
+    </form>
+
+
+    <h3>Коментарі</h3>
+    <ul class="list-group mt-3">
+        @foreach($comments as $comment)
+            <li class="list-group-item">
+                <strong>{{ $comment->user->username }}</strong>: {{ $comment->text }}
+            </li>
+        @endforeach
+    </ul>
+
+    <p></p>
     <a href="{{ route('posts.index') }}" class="btn btn-secondary">Назад до списку</a>
     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Редагувати</a>
 
