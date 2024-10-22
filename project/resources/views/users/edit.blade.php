@@ -6,6 +6,7 @@
 @section('content')
 <div class="container">
     <h1>Редагувати користувача</h1>
+    @include ('layouts.error')
     <form action="{{ route('users.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')

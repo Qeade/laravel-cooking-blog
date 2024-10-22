@@ -7,15 +7,7 @@
 <div class="container">
     
     <h1>Додати користувача</h1>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @include ('layouts.error')
 
     <form action="{{ route('users.store') }}" method="POST">
         @csrf
